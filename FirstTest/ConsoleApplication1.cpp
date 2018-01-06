@@ -25,7 +25,7 @@ int main()
 	LARGE_INTEGER Freq;
 	LARGE_INTEGER StartTime, EndTime, ElapsedTime;
 	QueryPerformanceFrequency(&Freq);
-	unordered_map<string, int> map = readWordsFromLex( "allWordsWithB.lex" );
+	unordered_map<string, int> map = readWordsFromLex( "allWordsWithB.txt" );
 	ofstream log("test1.log");
 	for( int k = 0; k<3; k++ ) {
 		QueryPerformanceCounter(&StartTime);
@@ -38,5 +38,4 @@ int main()
 		ElapsedTime.QuadPart /= Freq.QuadPart;
 		log << ElapsedTime.QuadPart << "\n";
 	}
-	Sleep(5000);
 }
