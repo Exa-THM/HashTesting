@@ -43,7 +43,7 @@ Das ganze wird in einer Datei spezifisch für diese Map mit dieser Hashfunktion 
 
 
 unsigned long badHash(string key) { //ein schlechter hash der immer den selben Wert zurück gibt
-	return 0;
+	return 0; //er ist wirklich langsam ich würde ihn aus den tests entfernen wenn ihr ihn nicht unbedingt braucht
 }
 
 unsigned long lowQualityHash(string key) {
@@ -153,10 +153,10 @@ string measureCollisions(HASH_MAP map, int maxModulo) {
 }
 
 void runTestsFor(HASH_FN hashing_func, string hashName, string lexikon, string lexikonName) {
-	string logFolder   = "../../../Logs/" + hashName + "/";
+	string logFolder   = "../../../Logs/" + hashName;
 	string logFileName = lexikonName + "Collision.log";
-	CreateDirectory( (LPCTSTR)logFolder.c_str(), NULL );
-	ofstream log(logFolder + logFileName);
+	CreateDirectoryA( (LPCSTR)logFolder.c_str(), NULL );
+	ofstream log(logFolder + "/" + logFileName);
 	cout << "Starting the test of the hash function " << hashName << " with the word lexikon " << lexikonName << "\n";
 	log << "Starting the test of the hash function " << hashName << " with the word lexikon " << lexikonName << "\n";
 	cout << "Starting to load map from " << lexikonName << "\n";
