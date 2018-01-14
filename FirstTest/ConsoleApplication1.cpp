@@ -16,7 +16,7 @@ using namespace std;
 
 #define HASH_FN function<unsigned long(std::string)>
 #define HASH_MAP unordered_map<string, unsigned long, HASH_FN>
-
+HashEntry **table;
 unsigned long badHash(string);
 unsigned long lowQualityHash(string);
 unsigned long exampleHash(string);
@@ -66,7 +66,16 @@ unsigned long exampleHash(string key) {
 }
 
 //hier die definition eurer hash funktion einfügen
+long int Hashing(string key) {
+	int hash = (key%128);
+	while (table[hash] != NULL && table[hash]->getKey() != key)
+		hash = (hash + 1) % 128;
+	if (table[hash] == NULL)
+		return -1;
+	else
+		return table[hash]->getValue();
 
+}
 
 HASH_MAP readWordsFromLex(const string fileName, HASH_FN hashFn ) {
 	HASH_MAP myMap( 0, hashFn );
