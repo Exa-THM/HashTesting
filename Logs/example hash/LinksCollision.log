@@ -2,30 +2,30 @@ Starting the test of the hash function example hash with the word lexikon Links
 Starting to load map from Links
 Loading finished. Loaded 17316 words from file.
 Started measuring access times
-accessing: http://www.giessen.de/index.phtml?NavID=684.224&La=1
-83757
-86253
-83442
-86786
-84415
-accessing: https://www.datenschutzzentrum.de/presse/20110930-facebook-enforce-privacy.html
-98656
-95731
-97927
-96840
-97512
-accessing: https://www.datenschutzzentrum.de/vortraege/20110326-weichert-datenschutz-strafverfolgung.html
-92362
-91432
-94203
-92461
-93624
-accessing: http://www.landesgartenschaugiessen.de/veranstaltungen.html
-92745
-94573
-92885
-95114
-92144
+accessing: http://www.ka-news.de/region/bruchsal/
+97597
+97140
+96561
+97200
+97014
+accessing: http://www.frizz-online.de/stadtmagazin/mittelhessen/events/b/238877
+105673
+103153
+102635
+106635
+102398
+accessing: http://www.mni.thm.de/index.php?Itemid=355
+63113
+61158
+60206
+62754
+60879
+accessing: http://www.jura.fu-berlin.de/fachbereich/einrichtungen/zivilrecht/lehrende/armbruesterc/NETJURA__E-Learning_/index.html
+118585
+116089
+116124
+120645
+117178
 Finished measuring access times
 Starting to calculate: 17316 Collisions
 19.000000

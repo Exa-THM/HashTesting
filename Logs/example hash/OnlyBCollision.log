@@ -2,30 +2,30 @@ Starting the test of the hash function example hash with the word lexikon OnlyB
 Starting to load map from OnlyB
 Loading finished. Loaded 8167 words from file.
 Started measuring access times
-accessing: Befehlsgerat
-171518
-169805
-170546
-170248
-172211
-accessing: Bewegungstherapie
-35352
-35897
-36893
-35484
-36225
-accessing: Barin
-171421
-169637
-170947
-168657
-170473
-accessing: Bewusstseinsstorung
-49833
-47194
-47131
-46830
-49307
+accessing: Beiried
+162276
+164897
+162997
+160383
+159495
+accessing: beschmutzte
+234395
+230559
+230174
+230501
+230506
+accessing: blutrot
+101659
+100235
+100811
+101660
+99101
+accessing: Bezug
+52930
+53954
+52225
+51296
+53406
 Finished measuring access times
 Starting to calculate: 8167 Collisions
 44.500000

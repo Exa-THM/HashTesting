@@ -2,30 +2,30 @@ Starting the test of the hash function bad hash with the word lexikon OnlyB
 Starting to load map from OnlyB
 Loading finished. Loaded 8167 words from file.
 Started measuring access times
-accessing: Bewegungslehre
-3383141
-3503756
-3523731
-3571029
-3590944
-accessing: Betrunkener
-10273385
-10347334
-10136971
-10223046
-10173583
-accessing: Besetzer
-9507464
-9561266
-9458752
-9412525
-9372225
-accessing: Begriffs-
-4429281
-4488804
-4508413
-4505646
-4512737
+accessing: banglich
+7006924
+6976492
+7172536
+7119534
+7142921
+accessing: Burgerliches Gesetzbuch
+184327
+185255
+185420
+184611
+186310
+accessing: Ballon-
+6215518
+6072911
+6145819
+6280082
+6106051
+accessing: Bronn
+939539
+948386
+951298
+947217
+950986
 Finished measuring access times
 Starting to calculate: 8167 Collisions
 4083.500000

@@ -2,30 +2,30 @@ Starting the test of the hash function low quality hash with the word lexikon Al
 Starting to load map from AllWords
 Loading finished. Loaded 113439 words from file.
 Started measuring access times
-accessing: untenrum
-300585
-298229
-293655
-293534
-294324
-accessing: Nebenraum
-130620
-132614
-132665
-131837
-133895
-accessing: Gardinenring
-196225
-193817
-193453
-194380
-192147
-accessing: Vorbeugungmittel
-279087
-275409
-279292
-276951
-278073
+accessing: Hypothalamus
+68483
+67996
+66005
+66280
+66157
+accessing: Mundung
+121182
+121532
+120726
+120447
+121475
+accessing: auseinander jagen
+96590
+95442
+94583
+94733
+95846
+accessing: CD-ROM-Laufwerk
+15087
+15008
+15134
+15142
+14998
 Finished measuring access times
 Starting to calculate: 113439 Collisions
 5124.500000

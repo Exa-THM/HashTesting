@@ -2,30 +2,30 @@ Starting the test of the hash function low quality hash with the word lexikon On
 Starting to load map from OnlyB
 Loading finished. Loaded 8167 words from file.
 Started measuring access times
-accessing: Bassin
-945685
-941344
-964123
-958004
-948249
-accessing: Bodennahe
-339883
-339271
-341599
-341289
-342369
-accessing: Bahnhofsbuchhandlung
-287914
-287331
-286022
-288311
-288621
-accessing: beteuern
-1558465
-1555129
-1550944
-1551773
-1555932
+accessing: busserln
+14438
+14645
+14314
+14297
+14268
+accessing: bewegliches
+94295
+92403
+95133
+92363
+95931
+accessing: Bugelsagemaschine
+364242
+370006
+350077
+365793
+347897
+accessing: Bordbuch
+172912
+172474
+174094
+175276
+174839
 Finished measuring access times
 Starting to calculate: 8167 Collisions
 4063.500000

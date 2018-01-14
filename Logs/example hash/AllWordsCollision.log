@@ -2,30 +2,30 @@ Starting the test of the hash function example hash with the word lexikon AllWor
 Starting to load map from AllWords
 Loading finished. Loaded 113439 words from file.
 Started measuring access times
-accessing: Pummel
-833127
-838472
-841641
-835960
-836989
-accessing: Hirtenstab
-5454981
-5403486
-5496303
-5481043
-5615415
-accessing: Schwertes
-1188144
-1171682
-1181604
-1183273
-1185860
-accessing: Hochland
-4933546
-5071601
-4819891
-4861402
-4832576
+accessing: ausraumen
+2468623
+2480898
+2476664
+2491859
+2463864
+accessing: verkalkulieren
+323342
+347389
+338480
+357219
+381360
+accessing: Freihandelszone
+1806154
+1808215
+1792282
+1787946
+1814045
+accessing: Trimm
+377830
+374659
+374665
+373480
+375355
 Finished measuring access times
 Starting to calculate: 113439 Collisions
 282.500000

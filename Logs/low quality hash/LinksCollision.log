@@ -2,30 +2,30 @@ Starting the test of the hash function low quality hash with the word lexikon Li
 Starting to load map from Links
 Loading finished. Loaded 17316 words from file.
 Started measuring access times
-accessing: http://www.thm.de/site/zs-angebot/beratung.html
-6930246
-7309684
-6710313
-6808319
-7256074
-accessing: http://www.datenschutz-berlin.de/news/Presse%C3%BCbersicht+
-7541996
-7795185
-7379328
-7387068
-7888186
-accessing: https://www.datenschutzzentrum.de/material/recht/dsleicht/hinwldsg.htm
-1665036
-1671366
-1850577
-1825405
-1667823
-accessing: http://www.talentfabrik24.de/region/saarland
-13452899
-13132569
-12813338
-13167094
-13017863
+accessing: http://www.frizz-online.de/stadtmagazin/aschaffenburg/events/b/242066
+16953998
+15932879
+15976299
+15724155
+16290928
+accessing: http://www.frizz-online.de/stadtmagazin/aschaffenburg/events/b/238423?mydate=4-1-2014
+16098843
+15812295
+15738855
+15351560
+15418903
+accessing: http://www.dsj.de/
+4726423
+4734114
+4753661
+5075414
+4913886
+accessing: http://www.frizz-online.de/stadtmagazin/wuerzburg/events/b/240400
+18524624
+17347525
+18506489
+17184899
+17812244
 Finished measuring access times
 Starting to calculate: 17316 Collisions
 8658.000000

@@ -1,7 +1,0 @@
-Getestet von C. Sann auf eigenem Desktop-PC, 13.01.2018.
-
-CPU: Intel Core i5-3450 Quadcore @ 3.10 GHz
-RAM: 16 GB
-
-Betriebssystem: Windows 10
-IDE: Microsoft Visual Studio - Kompiliert auf Release - x64

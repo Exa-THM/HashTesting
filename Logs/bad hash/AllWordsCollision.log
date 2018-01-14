@@ -2,30 +2,30 @@ Starting the test of the hash function bad hash with the word lexikon AllWords
 Starting to load map from AllWords
 Loading finished. Loaded 113439 words from file.
 Started measuring access times
-accessing: diminuendo
-97408102
-88603165
-85941532
-84943192
-88101287
-accessing: krankheitshalber
-247495324
-239615753
-244217383
-256808534
-241844067
-accessing: Klimakammer
-270582750
-375245045
-253541405
-296800934
-252473979
-accessing: Gesichtschirurgie
-177436582
-164698989
-164367612
-166105381
-164719182
+accessing: Belobigung
+243745870
+233331731
+232836938
+242374958
+172714780
+accessing: Callcenter
+116846250
+106479086
+112705526
+110355752
+102351808
+accessing: Petechien
+59056184
+58367922
+58902252
+58251033
+56034812
+accessing: Rosslispiel
+46175497
+46118110
+45100624
+46107948
+47681182
 Finished measuring access times
 Starting to calculate: 113439 Collisions
 56719.500000
