@@ -28,16 +28,20 @@ HashEntry **table;
 unsigned long badHash(string);
 unsigned long lowQualityHash(string);
 unsigned long exampleHash(string);
+unsigned long jenkins_one_at_a_time_64_hash(string);
+unsigned long jenkins_one_at_a_time_128_hash(string);
 //Hier einen Prototyp für eure Hashfunktion hinzufügen.
 //Ohne das wird eure Hashfunktion nicht erkannt bevor sie definiert wird - also müsstet ihr die definition über meine map legen - ich finde das wirklich hässlich
 
 
-unordered_map<string, HASH_FN> hashFuncs = { {"bad hash", badHash}, {"low quality hash", lowQualityHash}, {"example hash", exampleHash} };
+unordered_map<string, HASH_FN> hashFuncs = { { "bad hash", badHash },{ "low quality hash", lowQualityHash },{ "example hash", exampleHash },{ "Jenkins One At A Time Hash 64", jenkins_one_at_a_time_64_hash },{ "Jenkins One At A Time Hash 128", jenkins_one_at_a_time_128_hash } };
+//unordered_map<string, HASH_FN> hashFuncs = { {"low quality hash", lowQualityHash} };
 //Hier einen neuen Eintrag für eure Hash Funktion hinzufügen um es in die hashFuncs Map zu integrieren
 //Syntax : { { hashFunktionsName, hashFunktionOhne() }, { hashFunktionsName2, hashFunktionOhne()2 } }
 //Alle hash Funktionen in dieser Map werden dann später auch getested
 
 unordered_map<string, string> lexika = { { "AllWords", "../../../Lexika/FullLex.txt"}, { "OnlyB", "../../../Lexika/allWordsWithB.txt" }, { "Links", "../../../Lexika/somelinks.txt" } };
+//unordered_map<string, string> lexika = { { "OnlyB", "../../../Lexika/allWordsWithB.txt" },{ "Links", "../../../Lexika/somelinks.txt" } };
 //hier könntet ihr noch zusätzliche Test Daten einfügen - die Ergebnisse sind ziemlich unterschiedlich je nachdem welche Daten man mit welchem Hash die Daten verwendet werden
 //es werden alle Tests für jeden hash mit jeder Datengrundlage durchgeführt, sodass die Rechenarbeit schnell explodiert wenn ihr zu viel hinzufügt
 
@@ -70,6 +74,36 @@ unsigned long exampleHash(string key) {
 	{
 		hash += (71 * hash + key[i]) % 5;
 	}
+	return hash;
+}
+
+unsigned long jenkins_one_at_a_time_64_hash(const string key) {
+	//size_t i = 0;
+	size_t length = 64;
+	unsigned long hash = 0;
+	for (int i = 0; i<key.size(); i++) {
+		hash += key[i];
+		hash += hash << 10;
+		hash ^= hash >> 6;
+	}
+	hash += hash << 3;
+	hash ^= hash >> 11;
+	hash += hash << 15;
+	return hash;
+}
+
+unsigned long jenkins_one_at_a_time_128_hash(const string key) {
+	//size_t i = 0;
+	size_t length = 128;
+	unsigned long hash = 0;
+	for (int i = 0; i<key.size(); i++) {
+		hash += key[i];
+		hash += hash << 10;
+		hash ^= hash >> 6;
+	}
+	hash += hash << 3;
+	hash ^= hash >> 11;
+	hash += hash << 15;
 	return hash;
 }
 
