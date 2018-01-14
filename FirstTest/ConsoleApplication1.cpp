@@ -2,6 +2,9 @@
 //
 
 #include "stdafx.h"
+#include "MurmurHash3.cpp"
+#include "highwayhash.c"
+#include "Spooky.cpp"
 #include <unordered_map>
 #include <functional>
 #include <string>
@@ -13,100 +16,24 @@
 #include <Windows.h>
 
 using namespace std;
-class HashEntry{
-public:
-	int key;
-	int value;
-	HashEntry(int key, int value){
-		this->key = key;
-		this->value = value;
-	}
-};
+
 #define HASH_FN function<unsigned long(std::string)>
 #define HASH_MAP unordered_map<string, unsigned long, HASH_FN>
-HashEntry **table;
+//HashEntry **table;
+
 unsigned long badHash(string);
 unsigned long lowQualityHash(string);
 unsigned long exampleHash(string);
-unsigned long jenkins_one_at_a_time_64_hash(string);
-unsigned long jenkins_one_at_a_time_128_hash(string);
+unsigned long jenkins_one_at_a_time_64_hash(const string);
+unsigned long jenkins_one_at_a_time_128_hash(const string);
+unsigned long MurMur3(string);
+unsigned long Spooky(string);
+unsigned long HighWay(string);
+//unsigned long Hashing(string);
 //Hier einen Prototyp für eure Hashfunktion hinzufügen.
 //Ohne das wird eure Hashfunktion nicht erkannt bevor sie definiert wird - also müsstet ihr die definition über meine map legen - ich finde das wirklich hässlich
-class HashEntry {
-public:
-	int key;
-	int value;
-	HashEntry(int key, int value) {
-		this->key = key;
-		this->value = value;
-	}
-};
-class HashMap {
-	HashEntry **table;
-public:
-	HashMap() {
-		table = new HashEntry *[128];
-		for (int i = 0; i < 128; i++) {
-			table[i] = NULL;
-		}
-	}
-	int HashFunc(int key){
-		return key % 128;
-	}
-	void Insert(int key, int value){ //einfügen von dem key und value
-		int hash = HashFunc(key);
-		while (table[hash] != NULL && table[hash]->key != key){
-			hash = HashFunc(hash + 1);
-		}
-		if (table[hash] != NULL)
-			delete table[hash];
 
-		table[hash] = new HashEntry(key, value);
-	}
-	int Search(int key){ // suche nach dem schlüssel
-		int hash = HashFunc(key);
-		while (table[hash] != NULL && table[hash]->key != key){
-			hash = HashFunc(hash + 1);
-		}
-		if (table[hash] == NULL)
-			return -1;
-		else
-			return table[hash]->value;
-	}
-	void Remove(int key){
-		int hash = HashFunc(key);
-		while (table[hash] != NULL){
-			if (table[hash]->key == key)
-				break;
-			hash = HashFunc(hash + 1);
-		}
-		if (table[hash] == NULL){
-
-			cout << "Kein Element konnte im Schlüssel gefunden werden " << key << endl;
-
-			return;
-		}
-		else{
-			delete table[hash];
-		}
-
-		cout << "Element gelöscht" << endl;
-	}
-	~HashMap(){ //hashmap objekt zerstören
-
-		for (int i = 0; i < 128; i++){
-
-			if (table[i] != NULL)
-
-				delete table[i];
-
-			delete[] table;
-		}
-
-	}
-};
-
-unordered_map<string, HASH_FN> hashFuncs = { { "bad hash", badHash },{ "low quality hash", lowQualityHash },{ "example hash", exampleHash },{ "Jenkins One At A Time Hash 64", jenkins_one_at_a_time_64_hash },{ "Jenkins One At A Time Hash 128", jenkins_one_at_a_time_128_hash } };
+unordered_map<string, HASH_FN> hashFuncs = { {"MurMur 3", MurMur3}, {"Spooky",Spooky}, { "HighWay", HighWay } };
 //unordered_map<string, HASH_FN> hashFuncs = { {"low quality hash", lowQualityHash} };
 //Hier einen neuen Eintrag für eure Hash Funktion hinzufügen um es in die hashFuncs Map zu integrieren
 //Syntax : { { hashFunktionsName, hashFunktionOhne() }, { hashFunktionsName2, hashFunktionOhne()2 } }
@@ -151,7 +78,7 @@ unsigned long exampleHash(string key) {
 
 unsigned long jenkins_one_at_a_time_64_hash(const string key) {
 	//size_t i = 0;
-	size_t length = 64;
+	size_t length = 64; //beeinflusst gar nichts und von daher ist es die selbe version wie die 128
 	unsigned long hash = 0;
 	for (int i = 0; i<key.size(); i++) {
 		hash += key[i];
@@ -166,7 +93,7 @@ unsigned long jenkins_one_at_a_time_64_hash(const string key) {
 
 unsigned long jenkins_one_at_a_time_128_hash(const string key) {
 	//size_t i = 0;
-	size_t length = 128;
+	size_t length = 128; //beeinflusst gar nichts und von daher ist es die selbe version wie die 64
 	unsigned long hash = 0;
 	for (int i = 0; i<key.size(); i++) {
 		hash += key[i];
@@ -179,17 +106,114 @@ unsigned long jenkins_one_at_a_time_128_hash(const string key) {
 	return hash;
 }
 
-//hier die definition eurer hash funktion einfügen
-long int Hashing(string key) {
-	int hash = (key%128);
+unsigned long MurMur3(const string key) {
+	unsigned long hash[4];
+	MurmurHash3_x64_128(key.c_str(), key.size(), 0, hash);
+	return hash[0];
+}
+
+unsigned long Spooky(const string key) {
+	unsigned long hash1[2];
+	unsigned long hash2[2];
+	SpookyHash::Hash128(key.c_str(), key.size(), (uint64*)hash1, (uint64*)hash2);
+	return hash1[1];
+}
+
+unsigned long HighWay(string key) {
+	uint64 iv[4] = { 0,0,0,0 };
+	unsigned long hash[4];
+	HighwayHash128( (const uint8_t *)key.c_str(), key.size(), iv,( uint64_t *)hash );
+	return hash[1];
+}
+
+/*
+unsigned long Hashing(string key) {
+	int hash = (key % 128);
 	while (table[hash] != NULL && table[hash]->getKey() != key)
 		hash = (hash + 1) % 128;
 	if (table[hash] == NULL)
 		return -1;
 	else
-		return table[hash]->getValue();
+		return (unsigned long)table[hash]->getValue();
+}*/
+
+//hier die definition eurer hash funktion einfügen
+
+/*
+class HashEntry {
+public:
+int key;
+int value;
+HashEntry(int key, int value) {
+this->key = key;
+this->value = value;
+}
+};
+class HashMap {
+HashEntry **table;
+public:
+HashMap() {
+table = new HashEntry *[128];
+for (int i = 0; i < 128; i++) {
+table[i] = NULL;
+}
+}
+int HashFunc(int key){
+return key % 128;
+}
+void Insert(int key, int value){ //einfügen von dem key und value
+int hash = HashFunc(key);
+while (table[hash] != NULL && table[hash]->key != key){
+hash = HashFunc(hash + 1);
+}
+if (table[hash] != NULL)
+delete table[hash];
+
+table[hash] = new HashEntry(key, value);
+}
+int Search(int key){ // suche nach dem schlüssel
+int hash = HashFunc(key);
+while (table[hash] != NULL && table[hash]->key != key){
+hash = HashFunc(hash + 1);
+}
+if (table[hash] == NULL)
+return -1;
+else
+return table[hash]->value;
+}
+void Remove(int key){
+int hash = HashFunc(key);
+while (table[hash] != NULL){
+if (table[hash]->key == key)
+break;
+hash = HashFunc(hash + 1);
+}
+if (table[hash] == NULL){
+
+cout << "Kein Element konnte im Schlüssel gefunden werden " << key << endl;
+
+return;
+}
+else{
+delete table[hash];
+}
+
+cout << "Element gelöscht" << endl;
+}
+~HashMap(){ //hashmap objekt zerstören
+
+for (int i = 0; i < 128; i++){
+
+if (table[i] != NULL)
+
+delete table[i];
+
+delete[] table;
+}
 
 }
+};
+*/
 
 HASH_MAP readWordsFromLex(const string fileName, HASH_FN hashFn ) {
 	HASH_MAP myMap( 0, hashFn );
@@ -289,7 +313,7 @@ void runTestsFor(HASH_FN hashing_func, string hashName, string lexikon, string l
 	log << "Loading finished. Loaded " << map.size() << " words from file.\n";
 	cout << "Starting to measure access time - please avoid actions that cost perfomance as that would invalidate the results.\n";
 	log << "Started measuring access times\n";
-	log << measureAccessTimes2(map, 4, 5, 200000);
+	log << measureAccessTimes2(map, 20, 5, 200000);
 	cout << "Finished measuring access times\n";
 	log << "Finished measuring access times\n";
 	cout << "Starting to calculate: " << map.size() << " Collisions\n";
