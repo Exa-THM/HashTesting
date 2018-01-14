@@ -13,7 +13,15 @@
 #include <Windows.h>
 
 using namespace std;
-
+class HashEntry{
+public:
+	int key;
+	int value;
+	HashEntry(int key, int value){
+		this->key = key;
+		this->value = value;
+	}
+};
 #define HASH_FN function<unsigned long(std::string)>
 #define HASH_MAP unordered_map<string, unsigned long, HASH_FN>
 HashEntry **table;
