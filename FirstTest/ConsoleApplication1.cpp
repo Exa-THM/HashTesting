@@ -32,7 +32,79 @@ unsigned long jenkins_one_at_a_time_64_hash(string);
 unsigned long jenkins_one_at_a_time_128_hash(string);
 //Hier einen Prototyp für eure Hashfunktion hinzufügen.
 //Ohne das wird eure Hashfunktion nicht erkannt bevor sie definiert wird - also müsstet ihr die definition über meine map legen - ich finde das wirklich hässlich
+class HashEntry {
+public:
+	int key;
+	int value;
+	HashEntry(int key, int value) {
+		this->key = key;
+		this->value = value;
+	}
+};
+class HashMap {
+	HashEntry **table;
+public:
+	HashMap() {
+		table = new HashEntry *[128];
+		for (int i = 0; i < 128; i++) {
+			table[i] = NULL;
+		}
+	}
+	int HashFunc(int key){
+		return key % 128;
+	}
+	void Insert(int key, int value){ //einfügen von dem key und value
+		int hash = HashFunc(key);
+		while (table[hash] != NULL && table[hash]->key != key){
+			hash = HashFunc(hash + 1);
+		}
+		if (table[hash] != NULL)
+			delete table[hash];
 
+		table[hash] = new HashEntry(key, value);
+	}
+	int Search(int key){ // suche nach dem schlüssel
+		int hash = HashFunc(key);
+		while (table[hash] != NULL && table[hash]->key != key){
+			hash = HashFunc(hash + 1);
+		}
+		if (table[hash] == NULL)
+			return -1;
+		else
+			return table[hash]->value;
+	}
+	void Remove(int key){
+		int hash = HashFunc(key);
+		while (table[hash] != NULL){
+			if (table[hash]->key == key)
+				break;
+			hash = HashFunc(hash + 1);
+		}
+		if (table[hash] == NULL){
+
+			cout << "Kein Element konnte im Schlüssel gefunden werden " << key << endl;
+
+			return;
+		}
+		else{
+			delete table[hash];
+		}
+
+		cout << "Element gelöscht" << endl;
+	}
+	~HashMap(){ //hashmap objekt zerstören
+
+		for (int i = 0; i < 128; i++){
+
+			if (table[i] != NULL)
+
+				delete table[i];
+
+			delete[] table;
+		}
+
+	}
+};
 
 unordered_map<string, HASH_FN> hashFuncs = { { "bad hash", badHash },{ "low quality hash", lowQualityHash },{ "example hash", exampleHash },{ "Jenkins One At A Time Hash 64", jenkins_one_at_a_time_64_hash },{ "Jenkins One At A Time Hash 128", jenkins_one_at_a_time_128_hash } };
 //unordered_map<string, HASH_FN> hashFuncs = { {"low quality hash", lowQualityHash} };
