@@ -33,7 +33,7 @@ unsigned long HighWay(string);
 //Hier einen Prototyp für eure Hashfunktion hinzufügen.
 //Ohne das wird eure Hashfunktion nicht erkannt bevor sie definiert wird - also müsstet ihr die definition über meine map legen - ich finde das wirklich hässlich
 
-unordered_map<string, HASH_FN> hashFuncs = { {"MurMur 3", MurMur3}, {"Spooky",Spooky}, { "HighWay", HighWay } };
+unordered_map<string, HASH_FN> hashFuncs = { {"MurMur 3", MurMur3}, {"Spooky",Spooky}, { "HighWay", HighWay }, { "bad hash", badHash }, { "low quality hash", lowQualityHash }, {"example hash", exampleHash}, { "Jenkins One At A Time Hash 64", jenkins_one_at_a_time_64_hash }, { "Jenkins One At A Time Hash 128", jenkins_one_at_a_time_128_hash } };
 //unordered_map<string, HASH_FN> hashFuncs = { {"low quality hash", lowQualityHash} };
 //Hier einen neuen Eintrag für eure Hash Funktion hinzufügen um es in die hashFuncs Map zu integrieren
 //Syntax : { { hashFunktionsName, hashFunktionOhne() }, { hashFunktionsName2, hashFunktionOhne()2 } }
