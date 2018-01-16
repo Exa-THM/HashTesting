@@ -33,8 +33,8 @@ unsigned long HighWay(string);
 //Hier einen Prototyp für eure Hashfunktion hinzufügen.
 //Ohne das wird eure Hashfunktion nicht erkannt bevor sie definiert wird - also müsstet ihr die definition über meine map legen - ich finde das wirklich hässlich
 
-unordered_map<string, HASH_FN> hashFuncs = { {"MurMur 3", MurMur3}, {"Spooky",Spooky}, { "HighWay", HighWay }, { "bad hash", badHash }, { "low quality hash", lowQualityHash }, {"example hash", exampleHash}, { "Jenkins One At A Time Hash 64", jenkins_one_at_a_time_64_hash }, { "Jenkins One At A Time Hash 128", jenkins_one_at_a_time_128_hash } };
-//unordered_map<string, HASH_FN> hashFuncs = { {"low quality hash", lowQualityHash} };
+//unordered_map<string, HASH_FN> hashFuncs = { {"MurMur 3", MurMur3}, {"Spooky",Spooky}, { "HighWay", HighWay }, { "bad hash", badHash }, { "low quality hash", lowQualityHash }, {"example hash", exampleHash}, { "Jenkins One At A Time Hash 64", jenkins_one_at_a_time_64_hash }, { "Jenkins One At A Time Hash 128", jenkins_one_at_a_time_128_hash } };
+unordered_map<string, HASH_FN> hashFuncs = { {"bad hash", badHash } };
 //Hier einen neuen Eintrag für eure Hash Funktion hinzufügen um es in die hashFuncs Map zu integrieren
 //Syntax : { { hashFunktionsName, hashFunktionOhne() }, { hashFunktionsName2, hashFunktionOhne()2 } }
 //Alle hash Funktionen in dieser Map werden dann später auch getested
@@ -215,13 +215,25 @@ delete[] table;
 };
 */
 
-HASH_MAP readWordsFromLex(const string fileName, HASH_FN hashFn ) {
-	HASH_MAP myMap( 0, hashFn );
+HASH_MAP readWordsFromLex(string fileName, HASH_FN hashFn) {
+	HASH_MAP myMap(0, hashFn);
 	fstream lexikon(fileName);
-	string word;
-	while (getline(lexikon, word)) {
-		myMap[word] = hashFn(word);
+	string file;
+	file = fileName.substr(6, fileName.length());
+	cout << "FileName: " << file << endl;
+	string line;
+	ifstream myfile(file);
+	if (myfile)  // same as: if (myfile.good())
+	{
+		while (getline(myfile, line))  // same as: while (getline( myfile, line ).good())
+		{
+			//cout << "abc" << endl;
+			myMap[line] = hashFn(line);
+		}
+		myfile.close();
 	}
+	else cout << "ERROR\n";
+
 	return myMap;
 }
 
@@ -300,7 +312,8 @@ string measureCollisions(HASH_MAP map, int maxModulo) {
 }
 
 void runTestsFor(HASH_FN hashing_func, string hashName, string lexikon, string lexikonName) {
-	string logFolder   = "../../../Logs/" + hashName;
+	//string logFolder   = "../../../Logs/" + hashName;
+	string logFolder = "../Logs/" + hashName;
 	string logFileName = lexikonName + "Collision.log";
 	CreateDirectoryA( (LPCSTR)logFolder.c_str(), NULL );
 	ofstream log(logFolder + "/" + logFileName);
@@ -313,13 +326,14 @@ void runTestsFor(HASH_FN hashing_func, string hashName, string lexikon, string l
 	log << "Loading finished. Loaded " << map.size() << " words from file.\n";
 	cout << "Starting to measure access time - please avoid actions that cost perfomance as that would invalidate the results.\n";
 	log << "Started measuring access times\n";
-	log << measureAccessTimes2(map, 20, 5, 200000);
+	log << measureAccessTimes2(map, 4, 5, 200000);
 	cout << "Finished measuring access times\n";
 	log << "Finished measuring access times\n";
 	cout << "Starting to calculate: " << map.size() << " Collisions\n";
 	log << "Starting to calculate: " << map.size() << " Collisions\n";
 	log << measureCollisions(map, map.size());
 	cout << "Testing " << hashName << " with the word lexikon " << lexikonName << "has finished\nThe results can be found in Logs/" << hashName << "/" << logFileName;
+	cout << " \n" << "---------------------------------------------" << " \n";
 }
 
 int main(int argc, const char * argv[])
