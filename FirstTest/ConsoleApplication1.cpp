@@ -63,7 +63,7 @@ unsigned long lowQualityHash(string key) {
 	case 1: return key[0];
 	case 2: return key[0] | (key[1] << 8);
 	case 3: return key[0] | (key[1] << 8) | (key[2] << 16);
-	default: return key[0] | (key[1] << 8) | (key[2] << 16) | (key[2] << 24);
+	default: return key[0] | (key[1] << 8) | (key[2] << 16) | (key[3] << 24);
 	}
 }
 
